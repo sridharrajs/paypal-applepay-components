@@ -1,6 +1,6 @@
 {
   "name": "@paypal/applepay-components",
-  "version": "1.6.0",
+  "version": "1.6.0-apay-utf8",
   "description": "A PayPal Apple Pay Library to provide Apple Pay Integration",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,6 @@
     "babel": "babel src/ --out-dir dist/module",
     "webpack": "babel-node --plugins=transform-es2015-modules-commonjs ./node_modules/.bin/webpack --progress",
     "build": "npm run test && npm run babel && npm run webpack",
-    "prepare": "husky install",
     "prerelease": "npm run clean && npm run build && git add dist && git commit -m 'ci: check in dist folder' || echo 'Nothing to distribute'",
     "release": "standard-version",
     "postrelease": "git push && git push --follow-tags && npm publish"
