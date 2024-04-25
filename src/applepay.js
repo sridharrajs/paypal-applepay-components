@@ -97,6 +97,17 @@ function config(): Promise<ConfigResponse | PayPalApplePayErrorType> {
     });
 }
 
+function decodeBase64(base64): string {
+  const text = atob(base64);
+  const length = text.length;
+  const bytes = new Uint8Array(length);
+  for (let i = 0; i < length; i++) {
+    bytes[i] = text.charCodeAt(i);
+  }
+  const decoder = new TextDecoder(); // default is utf-8
+  return decoder.decode(bytes);
+}
+
 function validateMerchant({
   validationUrl,
   displayName,
@@ -166,7 +177,7 @@ function validateMerchant({
 
       const { applePayMerchantSession } = data;
       const payload = applePayMerchantSession
-        ? atob(applePayMerchantSession.session)
+        ? decodeBase64(applePayMerchantSession.session)
         : data;
       return {
         merchantSession: JSON.parse(payload),
